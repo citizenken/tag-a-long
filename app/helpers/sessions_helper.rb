@@ -1,10 +1,12 @@
 module SessionsHelper
+  require 'geokit'
+  #include GeoKit::Geocoders
+  
   def sign_in(user, ip)
     remember_token = User.new_remember_token
     cookies.permanent[:remember_token] = remember_token
     user.update_attribute(:remember_token, User.hash(remember_token))
     location = user_location(ip)
-    user.attributes = {:location => location}
     puts YAML::dump(location)
     Rails.cache.write(user.id, location)
     self.current_user = user
@@ -31,7 +33,7 @@ module SessionsHelper
   end
   
   def user_location(ip_address)
-    return Geocoders::MultiGeocoder.geocode(ip_address)
+    return GeoKit::Geocoders::IpGeocoder.geocode(ip_address)
   end
   
 end
