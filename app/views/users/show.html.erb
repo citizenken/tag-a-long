@@ -1,0 +1,13 @@
+<nav>
+<%if signed_in? %>
+  <%= link_to "My Profile", current_user %>
+  <%= link_to "My Events", "#" %>
+  <%= link_to "Settings", "#" %>
+  <%= link_to "Sign Out", logout_path, method: "delete" %>
+<% else %>
+  <%= link_to login_path %>
+<% end %>
+</nav>
+<h2>Welcome <%= @user.firstname %>!</h2>
+<h2><%= current_user.inspect %>!</h2>
+<%=link_to "Create event", new_event_path %>
