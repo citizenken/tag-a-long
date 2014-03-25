@@ -61,4 +61,5 @@ Tagalong::Application.routes.draw do
   match '/register',  to: 'users#new',            via: 'get'
   match '/login',  to: 'sessions#new',         via: 'get'
   match '/logout', to: 'sessions#destroy',     via: 'delete'
+  match '/get_nearby', to: 'users#get_nearby',    via: 'get'
 end

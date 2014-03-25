@@ -12,7 +12,7 @@ $(document).ready ->
         name.replace "session", "user"
     $("#user_username_or_email").attr "placeholder", "Username"
     $(".user_form").prop 'disabled', false
-    $(".user_form").slideToggle()
+    $(".user_form").fadeToggle()
     return
   hideRegisterForm = ->
     userForm = 0      
@@ -23,7 +23,7 @@ $(document).ready ->
         name.replace "user", "session"
     $("#user_username_or_email").attr "placeholder", "Username or Email"
     $(".user_form").prop 'disabled', true
-    $(".user_form").slideToggle()
+    $(".user_form").fadeToggle()
     return
   $("#reg_link").click ->
     if userForm is 0

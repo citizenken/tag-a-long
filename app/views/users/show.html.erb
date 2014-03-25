@@ -9,5 +9,7 @@
 <% end %>
 </nav>
 <h2>Welcome <%= @user.firstname %>!</h2>
-<h2><%= current_user.inspect %>!</h2>
+
+<p><%= link_to( "Find nearby locations", {:controller => "users", :action => "get_nearby"}, :remote => true) %></p>
+<%= @response %>
 <%=link_to "Create event", new_event_path %>

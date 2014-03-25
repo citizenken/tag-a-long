@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   has_many :events
-  acts_as_mappable
+  attr_accessor :location
   
   before_save { self.email = email.downcase }
   before_create :create_remember_token
@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   validates :password, :confirmation => true #password_confirmation attr
   has_secure_password
   validates_length_of :password, :in => 6..20, :on => :create
-
+  
   def User.new_remember_token
     SecureRandom.urlsafe_base64
   end
@@ -22,7 +22,8 @@ class User < ActiveRecord::Base
     Digest::SHA1.hexdigest(token.to_s)
   end
   
-  def User.get_location(user_ip)
+  def User.set_location(location)
+    
     
   end
   

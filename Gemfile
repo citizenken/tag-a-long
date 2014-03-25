@@ -35,10 +35,16 @@ end
 # Use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.0.0'
 
+gem 'geocoder'
+gem 'geokit'
 gem 'geokit-rails'
+
+gem 'httparty'
 
 group :development, :test do
   gem 'rspec-rails'
+  gem 'better_errors'
+  gem "binding_of_caller"
 end
 
 # Use unicorn as the app server
