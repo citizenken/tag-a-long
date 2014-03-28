@@ -19,15 +19,16 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
   
-  def get_nearby
-    url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="
-    lat = JSON.parse(cookies[:location])[0].to_s
-    lng = JSON.parse(cookies[:location])[1].to_s
-    full_url = url + lat + ',' + lng + '&sensor=false&key=AIzaSyAYXSIvkFkhm8PoPxiMc-W37fh0f2ZsRds&radius=500'
-    @response = HTTParty.get(full_url)
+  def get_user_coordinates
+    current_user.ip_address = request.ip
+    current_user.lat = Geocoder.coordinates(current_user.ip_address)[0]
+    puts YAML::dump(current_user)
+    
     respond_to do |format|
-      format.json { render json: @response }
+    #  format.html { redirect_to(current_user) }
+      format.json { render json: current_user }
     end
+    
   end
   
   private

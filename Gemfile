@@ -36,10 +36,10 @@ end
 gem 'bcrypt-ruby', '~> 3.0.0'
 
 gem 'geocoder'
-gem 'geokit'
-gem 'geokit-rails'
 
 gem 'httparty'
+
+gem 'jquery-ui-rails'
 
 group :development, :test do
   gem 'rspec-rails'

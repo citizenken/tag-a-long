@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   has_many :events
-  attr_accessor :location
+  attr_accessor :ip_address, :lat, :lon
   
   before_save { self.email = email.downcase }
   before_create :create_remember_token
@@ -21,12 +21,7 @@ class User < ActiveRecord::Base
   def User.hash(token)
     Digest::SHA1.hexdigest(token.to_s)
   end
-  
-  def User.set_location(location)
-    
-    
-  end
-  
+     
   private
   
     def create_remember_token
