@@ -41,6 +41,17 @@ gem 'httparty'
 
 gem 'jquery-ui-rails'
 
+gem 'devise'
+
+gem 'bootstrap-sass'
+
+gem "haml"
+
+gem 'ember-rails'
+gem 'ember-source'
+
+gem 'devise'
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'better_errors'

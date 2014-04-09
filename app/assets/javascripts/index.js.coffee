@@ -2,33 +2,81 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 $(document).ready ->
-  userForm = 0
+  registerForm = 0
   showRegisterForm = ->
-    userForm = 1
+    registerForm = 1    
+    checkEmailInUse()
     $("#login_form").attr "action", "/users"
-    $(".session_form").attr "id", (_, id) ->
-        id.replace "session", "user"
-    $(".session_form").attr "name", (_, name) ->
-        name.replace "session", "user"
-    $("#user_username_or_email").attr "placeholder", "Username"
-    $(".user_form").prop 'disabled', false
+    $(".form_field").attr "id", (_, id) ->
+      id.replace "session", "user"
+
+    $(".form_field").attr "name", (_, name) ->
+      name.replace "session", "user"
+
+    $(".user_form").prop "disabled", false
     $(".user_form").fadeToggle()
+    $("#password_message").show()
+
+    $("#login_signup").val "Sign Up"
+    $("#reg_link").text "Click Here to Login"
     return
+
   hideRegisterForm = ->
-    userForm = 0      
-    $("#login_form").attr "action", "/session"
-    $(".session_form").attr "id", (_, id) ->
-        id.replace "user", "session"
-    $(".session_form").attr "name", (_, name) ->
-        name.replace "user", "session"
-    $("#user_username_or_email").attr "placeholder", "Username or Email"
-    $(".user_form").prop 'disabled', true
+    registerForm = 0
+    $("#login_form").attr "action", "/sessions"
+    $(".form_field").attr "id", (_, id) ->
+      id.replace "user", "session"
+    $(".form_field").attr "name", (_, name) ->
+      name.replace "user", "session"
+    $(".user_form").prop "disabled", true
     $(".user_form").fadeToggle()
+    $("#password_message").hide()
+    $("#login_signup").val "Login"
+    $("#reg_link").text "Click Here to Sign Up"
+    $("#email_container").removeClass "has-success has-feedback"
+    $("#email_container").removeClass "has-error has-feedback"
+    $(".validation_element").hide()
     return
+
+  checkEmailInUse = ->
+    console.log('tset')
+    element = $("#email_field")
+    parent = element.parent()
+    if element.val() isnt ""
+      $.get(element.data("validate"),
+        email: element.val()
+      ).success(->
+        parent.removeClass "has-error has-feedback"
+        parent.addClass "has-success has-feedback"
+        parent.children(".glyphicon").removeClass "glyphicon-remove"
+        parent.children(".glyphicon").addClass "glyphicon-ok"
+        $("#email_glyphicon").show()
+        $('.form_bubble').hide()
+      ).error ->
+        parent.removeClass "has-success has-feedback"
+        parent.addClass "has-error has-feedback"
+        parent.children(".glyphicon").removeClass "glyphicon-ok"
+        parent.children(".glyphicon").addClass "glyphicon-remove"
+        $(".validation_element").show()
+    else
+      parent.removeClass "has-success has-feedback"
+      parent.removeClass "has-error has-feedback"
+      parent.children(".glyphicon").removeClass "glyphicon-remove"
+      parent.children(".glyphicon").removeClass "glyphicon-ok"
+      $(".validation_element").hide()
+
+
+  $("#login").on "click", ->
+    $("#login_box").slideToggle()
+
   $("#reg_link").click ->
-    if userForm is 0
+    if registerForm is 0
       showRegisterForm()
     else
       hideRegisterForm()
-  $(".user_form").hide().prop('disabled', true)  
-  return
+
+  $(".user_form").hide().prop "disabled", true
+  
+  $("#email_field").on "keyup", ->
+    checkEmailInUse()  if registerForm is 1
+    return

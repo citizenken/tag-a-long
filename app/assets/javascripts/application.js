@@ -15,4 +15,15 @@
 //= require turbolinks
 //= require_tree .
 //= require jquery.ui.all
-//= jquery-ui-timepicker-addon
+//= require jquery-ui-timepicker-addon
+//= require geo_autocomplete
+//= #require ./vendor/ember
+//= #require ./vendor/ember-rest
+//= require_tree ./lib
+//= require app/app
+//= require_tree ./app/models
+//= require_tree ./app/controllers
+//= require_tree ./app/views
+//= require_tree ./app/helpers
+//= require_tree ./app/templates
+

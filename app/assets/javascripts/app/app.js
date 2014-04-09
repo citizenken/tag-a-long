@@ -1,0 +1,1 @@
+window.Tal = Ember.Application.create();

@@ -13,16 +13,17 @@ class SessionsController < ApplicationController
       sign_in @user, request.remote_ip
       redirect_to @user
     elsif @user
-      flash.now[:error] = 'Invalid email/password combination'
+      flash[:error] = 'Invalid email/password combination'
       redirect_to root_url
     else
-      flash.now[:error] = "No account found. Please re-enter your credentials or register a new account"
+      flash[:error] = "No account found. Please re-enter your credentials or register a new account"
       redirect_to root_url
     end
   end
   
   def destroy
     sign_out
+    puts YAML::dump(session[:user_id])
     redirect_to root_url
   end
   
@@ -37,7 +38,7 @@ class SessionsController < ApplicationController
     
   private
   def user_params
-    params.require(:session).permit(:username_or_email, :password)
+    params.require(:session).permit(:email, :password)
   end
   
   def position_params

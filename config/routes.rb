@@ -1,4 +1,5 @@
 Tagalong::Application.routes.draw do
+  devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -62,5 +63,5 @@ Tagalong::Application.routes.draw do
   match '/login',  to: 'sessions#new',         via: 'get'
   match '/logout', to: 'sessions#destroy',     via: 'delete'
   match '/get_nearby', to: 'users#get_nearby',    via: 'get'
-  match '/get_user_coordinates', to: 'users#get_user_coordinates',    via: 'get'
+  match '/check_email', to: 'users#check_email',    via: 'get'
 end

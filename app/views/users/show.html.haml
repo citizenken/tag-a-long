@@ -1,0 +1,63 @@
+%nav
+  - if signed_in?
+    = link_to "My Profile", current_user
+    = link_to "My Events", "#"
+    = link_to "Settings", "#"
+    = link_to "Sign Out", logout_path, method: "delete"
+  - else
+    = link_to login_path
+%h2
+  Hey #{@user.firstname}!
+%table
+  %tr
+    %td
+      %h2 Your events
+    %td
+      %h2 Nearby events
+  %tr
+    %td
+      %button#new_event{type: "button"} Create a new event
+      #new_event_form{style: "display:none;"}
+        = form_for :event, url: events_path do |f|
+          %table
+            %tr
+              %td
+                = f.text_field :title, :placeholder => "Brief title of event", maxlength: 50, size: "40"
+            %tr
+              %td
+                = f.text_area :description, :placeholder => "Describe the event", maxlength: 140, size: "42x5", :id => "description"
+            %tr
+              %td
+                %input#charCounter{disabled: "disabled", maxlength: "3", size: "3", value: "140"}/
+                Characters Left
+            %tr
+              %td
+                = f.text_field :address, :placeholder => "Start typing your location", size: "40"
+            %tr
+              %td
+                = f.text_field :time, :placeholder => "Event date/time", maxlength: 50, size: "30"
+            %tr
+              %td
+                - options = [['Tag-a-longs?', 0], ['1', 1], ['2', 2], ['3', 3], ['4', 4], ['5', 5], ['6', 6], ['7', 7], ['8', 8], ['9', 9], ['10+', 10]]
+                = f.select :max_members, options_for_select(options, 0)
+            %tr
+              %td
+                = f.submit "Create Event!"
+  %tr
+    %td
+      #user_events_accordion
+        - @user.events.each do |event|
+          %h3.event_title{:id => "event_title_#{event.id}"}= event.title
+          %div.event_info{:id => "event_info_#{event.id}"}
+            %p.event_desc{:id => "event_desc_#{event.id}"}= event.description
+            %p.even_address{:id => "event_address_#{event.id}"}= event.address
+            %p.even_c_memebesr{:id => "event_c_memebers_#{event.id}"}Current Members #{event.count_members}
+            %p.even_m_memebesr{:id => "event_m_memebers_#{event.id}"}Max Members #{event.max_members}
+    %td
+      %ul
+        - @nearby_events.each do |event|
+          %li
+            %div{:id => "event_#{event.id}"}
+              %ul
+                %li= event.title
+                %li= event.address        
