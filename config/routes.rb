@@ -58,10 +58,7 @@ Tagalong::Application.routes.draw do
   root 'index#index'
   resources :users
   resources :events
-  resources :sessions, only: [:new, :create, :destroy]
   match '/register',  to: 'users#new',            via: 'get'
-  match '/login',  to: 'sessions#new',         via: 'get'
-  match '/logout', to: 'sessions#destroy',     via: 'delete'
   match '/get_nearby', to: 'users#get_nearby',    via: 'get'
   match '/check_email', to: 'users#check_email',    via: 'get'
 end

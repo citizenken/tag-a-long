@@ -1,24 +1,8 @@
-- flash.each do |key, value|
-  %div.alert{:class => "alert-#{key}"}= value
+/ - flash.each do |key, value|
+/   %div.alert{:class => "alert-#{key}"}= value
 .content
   %h1 Welcome to Tag-a-long
   %br
-  #login_box
-    = form_for(:session, url: sessions_path, :html => {:id => "login_form"}) do |f|
-      .form-group.fl
-        = f.text_field :firstname, :placeholder => 'First name', :class => "form_field user_form name_field form-control", :id => "first_field"
-      .form-group.fr
-        = f.text_field :lastname, :placeholder => 'Last name', :class => "form_field user_form name_field form-control", :id => "last_field"
-      .form-group#email_container
-        = f.text_field :email, :placeholder => 'Enter Your Email', :class => "form_field form-control", :id => "email_field", :'data-validate' => '/check_email'
-        %span.glyphicon.form-control-feedback#email_glyphicon.validation_element
-        .arrow-up.form_bubble.validation_element
-        %span.help-block#email_in_use.form_bubble.validation_element This email address is already in use.<br>Click here if you've forgotten your password.
-      .form-group
-        = f.password_field :password, :placeholder => 'Enter Your Password', :class => "form_field form-control"
-      .form-group
-        = f.password_field :password_confirmation, :placeholder => 'Confirm password', :class => "form_field user_form form-control"
-        %p#password_message.help-block Use at least one uppercase letter, one number, and must be longer than 7 characters           
-      .form-group
-        = f.submit :Login, :class => "btn btn-primary", :id => "login_signup"
-  %p New to Tag-a-long? <a id="reg_link">Click Here to Sign Up</a>
+  %h2 There are #{@nearby_events.length} nearby events.
+  <p id="event_preview" class=""><span id="owner" class="bold"></span> is hanging out with <span id="event_attendee_count" class="bold"></span> other people and they are <span id="event_title" class="bold"></span></p>
+  / %button.btn.btn-primary Check them out!
