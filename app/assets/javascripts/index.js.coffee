@@ -1,29 +1,39 @@
 # # Place all the behaviors and hooks related to the matching controller here.
 # # All this logic will automatically be available in application.js.
 # # You can use CoffeeScript in this file: http://coffeescript.org/
+# $("#event_preview").css('visibility', 'hidden')
 if gon
   nearbyEvents = gon.nearby_events 
   console.log(nearbyEvents)
 
-  $("#event_preview").css('visibility', 'hidden')
 
   currentEventPreview = 0
   showPreview = ->
     if $("#event_preview").is(":visible")
       $("#event_preview").fadeTo "slow", 0, ->
-        currentEvent = nearbyEvents[currentEventPreview]
-        if currentEvent.count_members
-          count_members = currentEvent.count_members
-        else
-          count_members = 0
-        $("#event_attendee_count").text count_members
-        $("#event_title").text currentEvent.title
-        $("#event_preview").delay(1000).fadeTo("slow", 1)
-        if currentEventPreview + 1 < nearbyEvents.length
-          currentEventPreview++
-        else
-          currentEventPreview = 0
-      return
+        changePreview()
+        return
+
+    else
+      changePreview()
+    return
+
+  changePreview = ->
+    preview = $("#event_preview")
+    currentEvent = nearbyEvents[currentEventPreview]
+    if currentEvent[0].count_members
+      count_members = currentEvent[0].count_members
+    else
+      count_members = 0
+    $("#event_attendee_count").text count_members
+    $("#event_title").text currentEvent[0].title
+    $("#event_owner").text currentEvent[1].firstname
+    preview.delay(1000).fadeTo "slow", 1
+    preview.removeClass "invisible"  if preview.hasClass("invisible")
+    if currentEventPreview + 1 < nearbyEvents.length
+      currentEventPreview++
+    else
+      currentEventPreview = 0
     return
 
   window.setInterval (->

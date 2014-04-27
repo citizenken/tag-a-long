@@ -4,5 +4,22 @@
   %h1 Welcome to Tag-a-long
   %br
   %h2 There are #{@nearby_events.length} nearby events.
-  <p id="event_preview" class=""><span id="owner" class="bold"></span> is hanging out with <span id="event_attendee_count" class="bold"></span> other people and they are <span id="event_title" class="bold"></span></p>
-  / %button.btn.btn-primary Check them out!
+  <p id="event_preview" class="invisible"><span id="event_owner" class="bold"></span> is hanging out with <span id="event_attendee_count" class="bold"></span> other people and they're <span id="event_title" class="bold"></span></p>
+  .signup
+    = form_for(:user, url: registration_path(:user)) do |f|
+      / = devise_error_messages!
+      %div
+        / = f.label :email
+        / %br/
+        = f.email_field :email, autofocus: true, placeholder: "Email"
+      %div
+        / = f.label :password
+        / %br/
+        = f.password_field :password, autocomplete: "off", placeholder: "Password"
+      %div
+        / = f.label :password_confirmation
+        / %br/
+        = f.password_field :password_confirmation, autocomplete: "off", placeholder: "Confirm Password"
+      %div= f.submit "Sign up"
+
+  %button.btn.btn-primary Sign up to check them out!
