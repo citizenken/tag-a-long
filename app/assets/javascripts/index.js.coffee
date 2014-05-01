@@ -13,7 +13,6 @@ if gon
       $("#event_preview").fadeTo "slow", 0, ->
         changePreview()
         return
-
     else
       changePreview()
     return
@@ -42,82 +41,91 @@ if gon
   ), 5000
 
 
-# $(document).ready ->
-#   registerForm = 0
-#   showRegisterForm = ->
-#     registerForm = 1    
-#     checkEmailInUse()
-#     $("#login_form").attr "action", "/users"
-#     $(".form_field").attr "id", (_, id) ->
-#       id.replace "session", "user"
-
-#     $(".form_field").attr "name", (_, name) ->
-#       name.replace "session", "user"
-
-#     $(".user_form").prop "disabled", false
-#     $(".user_form").fadeToggle()
-#     $("#password_message").show()
-
-#     $("#login_signup").val "Sign Up"
-#     $("#reg_link").text "Click Here to Login"
-#     return
-
-#   hideRegisterForm = ->
-#     registerForm = 0
-#     $("#login_form").attr "action", "/sessions"
-#     $(".form_field").attr "id", (_, id) ->
-#       id.replace "user", "session"
-#     $(".form_field").attr "name", (_, name) ->
-#       name.replace "user", "session"
-#     $(".user_form").prop "disabled", true
-#     $(".user_form").fadeToggle()
-#     $("#password_message").hide()
-#     $("#login_signup").val "Login"
-#     $("#reg_link").text "Click Here to Sign Up"
-#     $("#email_container").removeClass "has-success has-feedback"
-#     $("#email_container").removeClass "has-error has-feedback"
-#     $(".validation_element").hide()
-#     return
-
-#   checkEmailInUse = ->
-#     console.log('tset')
-#     element = $("#email_field")
-#     parent = element.parent()
-#     if element.val() isnt ""
-#       $.get(element.data("validate"),
-#         email: element.val()
-#       ).success(->
-#         parent.removeClass "has-error has-feedback"
-#         parent.addClass "has-success has-feedback"
-#         parent.children(".glyphicon").removeClass "glyphicon-remove"
-#         parent.children(".glyphicon").addClass "glyphicon-ok"
-#         $("#email_glyphicon").show()
-#         $('.form_bubble').hide()
-#       ).error ->
-#         parent.removeClass "has-success has-feedback"
-#         parent.addClass "has-error has-feedback"
-#         parent.children(".glyphicon").removeClass "glyphicon-ok"
-#         parent.children(".glyphicon").addClass "glyphicon-remove"
-#         $(".validation_element").show()
-#     else
-#       parent.removeClass "has-success has-feedback"
-#       parent.removeClass "has-error has-feedback"
-#       parent.children(".glyphicon").removeClass "glyphicon-remove"
-#       parent.children(".glyphicon").removeClass "glyphicon-ok"
-#       $(".validation_element").hide()
-
-
-#   $("#login").on "click", ->
-#     $("#login_box").slideToggle()
-
-#   $("#reg_link").click ->
-#     if registerForm is 0
-#       showRegisterForm()
-#     else
-#       hideRegisterForm()
-
-#   $(".user_form").hide().prop "disabled", true
+$(document).ready ->
+  registerForm = 0
+  signinForm = 0
   
-#   $("#email_field").on "keyup", ->
-#     checkEmailInUse()  if registerForm is 1
-#     return
+  signup = $("#signup")
+  signupButton = $("#signup-button")
+  showRegisterForm = ->
+    registerForm = 1    
+    # checkEmailInUse()
+    # $("#toggle-signup-form").addClass("hidden")
+    signup.hide().removeClass("hidden")
+    signup.slideToggle()
+    $("#signup_email_field").focus()
+    # $("#password_message").show()
+    signupButton.text "Sign up!"
+    signupButton.prop 'type', 'submit'
+    return
+
+  hideRegisterForm = ->
+    registerForm = 0
+    signup.slideToggle()
+    signupButton.text "Sign up to check them out!"
+    emailContainer = $("#email_container")
+    emailContainer.removeClass "has-success has-feedback"
+    emailContainer.removeClass "has-error has-feedback"
+    $(".validation_element").hide()
+    return
+
+  checkEmailInUse = ->
+    element = $("#signup_email_field")
+    parent = element.parent()
+    glyphicon = parent.children(".glyphicon")
+    if element.val() isnt ""
+      $.get(element.data("validate"),
+        email: element.val()
+      ).success(->
+        parent.removeClass "has-error has-feedback"
+        parent.addClass "has-success has-feedback"
+        glyphicon.removeClass "glyphicon-remove"
+        glyphicon.addClass "glyphicon-ok"
+        $("#email_glyphicon").show()
+        $('.form_bubble').hide()
+      ).error ->
+        parent.removeClass "has-success has-feedback"
+        parent.addClass "has-error has-feedback"
+        glyphicon.removeClass "glyphicon-ok"
+        glyphicon.addClass "glyphicon-remove"
+        $(".validation_element").show()
+    else
+      parent.removeClass "has-success has-feedback"
+      parent.removeClass "has-error has-feedback"
+      glyphicon.removeClass "glyphicon-remove"
+      glyphicon.removeClass "glyphicon-ok"
+      $(".validation_element").hide()
+
+
+  # $("#login").on "click", ->
+  #   $("#login_box").slideToggle()
+
+  $("#toggle-signup-form").click ->
+    if registerForm is 0
+      $("#toggle-signup-form").text "Cancel"
+      showRegisterForm()
+    else
+      $("#toggle-signup-form").text "Sign up to check them out!"
+      hideRegisterForm()
+
+  # $(".user_form").hide().prop "disabled", true
+
+  $("#signup_email_field").on "keyup", ->
+    checkEmailInUse()
+      # if registerForm is 1
+    return
+
+  $("#toggle-signin-form").click ->
+    if signinForm is 0
+      signinForm = 1
+      $(".signin_form").hide().removeClass("invisible").show("slide", { direction: "right" }, 1000);
+      $("#toggle-signin-form").text "Cancel"
+    else
+      signinForm = 0
+      $(".signin_form").show("slide", { direction: "left" }, 1000).hide().addClass("invisible")
+      $("#toggle-signin-form").text "Sign in"
+
+
+
+
+  #$(".alert").hide().slideToggle().delay(2000).slideToggle() if ($(".alert").length)

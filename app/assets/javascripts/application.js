@@ -20,10 +20,9 @@
 //= #require ./vendor/ember
 //= #require ./vendor/ember-rest
 //= require_tree ./lib
-//= require app/app
-//= require_tree ./app/models
-//= require_tree ./app/controllers
-//= require_tree ./app/views
-//= require_tree ./app/helpers
-//= require_tree ./app/templates
-
+//= require_tree ./models
+//= require_tree ./controllers
+//= require_tree ./views
+//= require_tree ./helpers
+//= require_tree ./templates
+window.Tagalong = Ember.Application.create({})

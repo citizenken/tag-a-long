@@ -37,8 +37,6 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 
 gem 'geocoder'
 
-gem 'httparty'
-
 gem 'jquery-ui-rails'
 
 gem 'devise'
@@ -48,7 +46,7 @@ gem 'bootstrap-sass'
 gem "haml"
 
 gem 'ember-rails'
-gem 'ember-source'
+gem 'ember-source', '~> 1.5.1.1'
 
 gem 'devise'
 

@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :signed_in_user, only: [:edit, :update, :show]
-  
+  before_action :signed_in_user, only: [:edit, :update, :show, :home]
+
   def new
     @user = User.new 
   end
@@ -16,6 +16,17 @@ class UsersController < ApplicationController
     end
   end
   
+  def home
+    @user = User.find(current_user[:id])
+    coords = [request.location.latitude, request.location.longitude] 
+    @nearby_events = Event.near(coords, 5)
+
+    # respond_to do |format|
+    #   format.html
+    #   format.json { render json: @nearby_events }
+    # end
+  end
+
   def show
     @user = User.find(params[:id])
     coords = [request.location.latitude, request.location.longitude] 
