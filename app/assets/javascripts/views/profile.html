@@ -1,0 +1,50 @@
+<script type="text/x-handlebars" id="profile">
+  <div style="width:50%;">
+    <div style="display:inline-block;float:left;padding-top:">
+      <img style="height:160px;width:160px;padding-top:30px"></img>
+    </div>
+    <div style="display:inline-block;width:450px;padding-left:10px;">
+      <h3>{{name.firstName}} {{name.lastName}}</h3>
+      <p><strong>Birthday: </strong>{{birthDate}}</p>
+      <p style="overflow:auto">{{description}}</p>
+      <button class="btn-primary">Interests</button>
+      <div id="interests">
+        <table>
+          <tr>
+            <td>
+              <input type="checkbox">check 1</input>
+            </td>
+            <td>
+              <input type="checkbox">check 2</input>
+            </td>
+            <td>
+              <input type="checkbox">check 3</input>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input type="checkbox">check 1</input>
+            </td>
+            <td>
+              <input type="checkbox">check 2</input>
+            </td>
+            <td>
+              <input type="checkbox">check 3</input>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input type="checkbox">check 1</input>
+            </td>
+            <td>
+              <input type="checkbox">check 2</input>
+            </td>
+            <td>
+              <input type="checkbox">check 3</input>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</script>

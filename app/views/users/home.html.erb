@@ -1,41 +1,147 @@
 <script type="text/x-handlebars">
-  <div class="navbar">
-    <div class="navbar-inner">
-      <a class="brand" href="#">Bloggr</a>
-      <ul class="nav">
-        <li>test1</li>
-        <li>test2</li>
-      </ul>
+  <div class="container-fluid">
+    <div class="navbar navbar-inverse navbar-static-top" role="navigation">
+      <div class="navbar-inner container">
+        <a class="navbar-brand">Tag-a-long</a>
+        <ul class="nav navbar-nav">
+          <li>{{#link-to 'events'}}Events{{/link-to}}</li>
+          <li>{{#link-to 'profile'}}Your Profile{{/link-to}}</li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><button class="btn btn-default navbar-btn">Logout</a></li>
+        </ul>
+      </div>
     </div>
+    {{outlet}}
   </div>
-
-  {{outlet}}
 </script>
 
-<script type="text/x-handlebars" id="posts">
-  <div class="container-fluid">
-    <div class="row-fluid">
-      <div class="span3">
-        <table class='table'>
-          <thead>
-            <tr><th>Recent Posts</th></tr>
-          </thead>
-          {{#each model}}
-          <tr><td>
-              {{#link-to 'post' this}}{{title}} <small class='muted'>by {{author.name}}</small>{{/link-to}}
-          </td></tr>
-          {{/each}}
+<script type="text/x-handlebars" id="profile">
+  <div style="width:50%;">
+    <div style="display:inline-block;float:left;padding-top:">
+      <img style="height:160px;width:160px;padding-top:30px"></img>
+    </div>
+    <div style="display:inline-block;width:450px;padding-left:10px;">
+      <h3>{{name.firstName}} {{name.lastName}}</h3>
+      <p><strong>Birthday: </strong>{{birthDate}}</p>
+      <p style="overflow:auto">{{description}}</p>
+      <button class="btn-primary">Interests</button>
+      <div id="interests">
+        <table>
+          <tr>
+            <td>
+              <input type="checkbox">check 1</input>
+            </td>
+            <td>
+              <input type="checkbox">check 2</input>
+            </td>
+            <td>
+              <input type="checkbox">check 3</input>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input type="checkbox">check 1</input>
+            </td>
+            <td>
+              <input type="checkbox">check 2</input>
+            </td>
+            <td>
+              <input type="checkbox">check 3</input>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input type="checkbox">check 1</input>
+            </td>
+            <td>
+              <input type="checkbox">check 2</input>
+            </td>
+            <td>
+              <input type="checkbox">check 3</input>
+            </td>
+          </tr>
         </table>
       </div>
-      <div class="span9">
-        {{outlet}}
-      </div>
     </div>
   </div>
 </script>
 
-<script type="text/x-handlebars" id="posts/index">
-  <p class="text-warning">Please select a post</p>
+<script type="text/x-handlebars" id="events">
+  <div class="container-fluid">
+    <div class="container-fluid">
+      <ul class="list-inline">
+        <li>
+          {{#link-to 'find' class="btn btn-primary"}}Find Nearby Events{{/link-to}}
+        </li>
+        <li>
+          {{#link-to 'pending' class="btn btn-primary"}}Pending Events{{/link-to}}
+        </li>
+        <li>
+          {{#link-to 'myEvents' class="btn btn-primary"}}My Events{{/link-to}}
+        </li>
+      </ul>
+    {{outlet}}
+    </div>
+  </div>
+</script>
+
+<script type="text/x-handlebars" id="find">
+  <div class="span3">
+    <table class="table">
+      <thead>
+        <tr><th>Nearby Events</th></tr>
+      </thead>
+      {{#each model}}
+        {{log this}}
+        {{partial 'event-list'}}
+      {{/each}}
+    </table>
+  </div>
+</script>
+
+<script type="text/x-handlebars" id="_event-list">
+  <tr><td>
+    <div class="event{{unbound id}}">
+      <h5>{{#link-to 'myEvent' this}}{{title}}{{/link-to}}</h5>
+      <p>hosted by <strong>{{author.name}}</strong><p>
+    </div>
+  </td></tr>
+</script>
+
+
+<script type="text/x-handlebars" id="pending">
+  <div class="span3">
+    <table class="table">
+      <thead>
+        <tr><th>Pending Events</th></tr>
+      </thead>
+      {{#each model}}
+        {{log this}}
+        {{partial 'event-list'}}
+      {{/each}}
+    </table>
+  </div>
+</script>
+
+<script type="text/x-handlebars" id="myEvents">
+  <div class="span3">
+    <table class="table">
+      <thead>
+        <tr><th>My Events</th></tr>
+      </thead>
+      {{#each model}}
+        {{partial 'event-list'}}
+      {{/each}}
+    </table>
+  </div>
+</script>
+
+
+
+
+<script type="text/x-handlebars" id="events/find/index">
+  <p class="text-warning">Find nearby events</p>
 </script>
 
 <script type="text/x-handlebars" id="post">

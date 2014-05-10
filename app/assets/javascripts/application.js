@@ -25,4 +25,4 @@
 //= require_tree ./views
 //= require_tree ./helpers
 //= require_tree ./templates
-window.Tagalong = Ember.Application.create({})
+// window.Tagalong = Ember.Application.create({})
