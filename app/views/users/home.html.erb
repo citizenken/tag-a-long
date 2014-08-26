@@ -8,7 +8,8 @@
           <li>{{#link-to 'profile'}}Your Profile{{/link-to}}</li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li><button class="btn btn-default navbar-btn">Logout</a></li>
+          <li><%= link_to "Sign Out", destroy_user_session_path, :class => "btn btn-default navbar-btn", method: "delete" %></li>
+          {{!-- <li><button class="btn btn-default navbar-btn" href="/">Logout</a></li> --}}
         </ul>
       </div>
     </div>
@@ -75,9 +76,6 @@
           {{#link-to 'find' class="btn btn-primary"}}Find Nearby Events{{/link-to}}
         </li>
         <li>
-          {{#link-to 'pending' class="btn btn-primary"}}Pending Events{{/link-to}}
-        </li>
-        <li>
           {{#link-to 'myEvents' class="btn btn-primary"}}My Events{{/link-to}}
         </li>
       </ul>
@@ -93,8 +91,10 @@
         <tr><th>Nearby Events</th></tr>
       </thead>
       {{#each model}}
-        {{log this}}
-        {{partial 'event-list'}}
+        {{#each item}}
+          {{log title}}
+          {{partial 'event-list'}}
+        {{/each}}
       {{/each}}
     </table>
   </div>
